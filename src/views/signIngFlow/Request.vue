@@ -9,7 +9,7 @@
       <h4 :class="{ 'light-text': !isDarkMode, 'dark-text': isDarkMode }">
         Reqeust Account
       </h4>
-      <form>
+      <form @submit.prevent="onSubmit">
         <input
           :class="{ 'light-field': isDarkMode, 'dark-field': !isDarkMode }"
           type="email"
@@ -48,7 +48,30 @@ export default {
       return this.$store.getters.isDarkMode;
     },
   },
-  methods: {},
+  methods: {
+    onSubmit() {
+      const email = this.email;
+      // slack api logic
+      let slackURL = new URL("https://slack.com/api/chat.postMessage");
+
+      const data = {
+        channel: "hq-vue",
+        text: `${email}  has requested admin access to HQ. Please go to Netlify to invite them.`,
+        pretty: 1,
+      };
+
+      slackURL.search = new URLSearchParams(data);
+      var myInit = {
+        method: "GET",
+        headers: {
+          Authorization:
+            "Bearer xoxb-1537918929431-2548038005557-El9vF5hvFyw69vC4JM5Lrumk",
+          "Content-Type": "application/json",
+        },
+      };
+      fetch(slackURL, myInit);
+    },
+  },
   mounted() {},
 };
 </script>

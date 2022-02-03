@@ -14,8 +14,14 @@ export default {
   },
 };
 </script>
+
 <style lang="scss">
+* {
+  transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
 body {
+  margin: 0;
   background: $dark-blue;
 }
 h1 {
@@ -30,19 +36,6 @@ p {
   -moz-osx-font-smoothing: grayscale;
   color: $white;
   background-color: $dark-blue;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: $white;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
 }
 
 h4 {

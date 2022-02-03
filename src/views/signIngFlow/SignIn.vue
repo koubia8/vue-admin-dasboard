@@ -14,7 +14,7 @@
       <form @submit.prevent="onSubmit">
         <input
           :class="{ 'light-field': isDarkMode, 'dark-field': !isDarkMode }"
-          type="email"
+          type="text"
           placeholder="Your email"
           v-model="email"
           required
@@ -68,6 +68,28 @@ export default {
     onSubmit() {
       const email = this.email;
       const password = this.password;
+      /* const data = {
+        username: email,
+        password: password,
+      };
+        var headers = new Headers();
+      headers.append("Access-Control-Allow-Origin", "*");
+      headers.append("Access-Control-Allow-Headers", "*");
+      headers.append("Content-Type", "application/json");
+
+       fetch("http://31.207.36.201:9590/api/v1/godopay/auth/login", {
+        method: "post",
+        mode: "cors",
+        headers: headers,
+        body: JSON.stringify(data),
+      })
+        .then((response) => {
+          console.log(JSON.stringify(response.blob()));
+        })
+        .catch((error) => {
+          console.log("ERROR " + JSON.stringify(error.blob()));
+        });
+      console.log(auth); */
       auth
         .login(email, password, true)
         .then(() => {
@@ -85,8 +107,8 @@ export default {
       this.hasText = true;
       this.text = "You have logged out !";
     } else if (params.userRecoveredAccount) {
-      this.hasText =
-        this.text = `A recovery email has been sent to ${params.email}`;
+      this.hasText = false;
+      this.text = `A recovery email has been sent to ${params.email}`;
     }
   },
 };
